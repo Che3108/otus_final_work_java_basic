@@ -2,41 +2,25 @@ package ru.otus.cherepanovvs;
 
 import java.util.Arrays;
 
-//import java.util.Random;
-
 public class Agent implements Comparable<Agent> {
     private int[] genom;
-    private long score;
-    private double dist;
+    private double score;
 
     public Agent(int[] genom) {
         this.genom = genom;
         this.score = Integer.MIN_VALUE;
-        this.dist = Integer.MIN_VALUE;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
-    public long getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void addScore(int score) {
+    public void addScore(double score) {
         this.score += score;
-    }
-
-    public void setDist(double dist) {
-        this.dist = dist;
-    }
-
-    public double getDist() {
-        return dist;
-    }
-
-    public void addDist(double dist) {
-        this.dist += dist;
     }
 
     public int[] getGenom() {
@@ -53,8 +37,7 @@ public class Agent implements Comparable<Agent> {
 
     @Override
     public String toString() {
-        String s = "Score: " + score + " genom: " + Arrays.toString(genom) + " dist: " + dist;
+        String s = "score: " + score + " genom: " + Arrays.toString(genom);
         return s;
-
     }
 }

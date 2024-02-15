@@ -18,16 +18,16 @@ public class GeneticAlgorithm {
     private Space space;
     private int fine;
 
-    public GeneticAlgorithm(Space space, int epochs, int genomAgentLen,
-                            int populationSize, int bestAgentCount,
-                            float mutationPersent, float crossbreedPercent, int fine) {
+    public GeneticAlgorithm(Space space, int epochs, int populationSize, 
+                            int bestAgentCount, float mutationPersent,
+                            float crossbreedPercent, int fine) {
+        this.space = space;
         this.epochs = epochs;
-        this.genomAgentLen = genomAgentLen;
+        this.genomAgentLen = space.getPointsCount();
         this.populationSize = populationSize;
         this.bestAgentCount = bestAgentCount;
         this.mutationPersent = mutationPersent;
         this.crossbreedPercent = crossbreedPercent;
-        this.space = space;
         this.fine = fine;
     }
 
@@ -57,12 +57,12 @@ public class GeneticAlgorithm {
             for (int i = 0; i < newPopulSize; i++) {
                 newPopulation.add(mutation(newPopulation.get(i)));
             }
-            /*
-            newPopulSize = newPopulation.size();
-            while (newPopulSize != population.size()) {
-                newPopulation.add(new Agent(generateRandomGenom()));
+            int remainder = populationSize - newPopulation.size();
+            if (remainder > 0) {
+                for (int i = 0; i < remainder; i++) {
+                    newPopulation.add(new Agent(generateRandomGenom()));
+                }
             }
-            */
             population = newPopulation;
         }
     }
@@ -86,12 +86,12 @@ public class GeneticAlgorithm {
     private void calcAgentScore(Agent agent) {
         int[] genom = agent.getGenom();
         int uniqueGenCount = getUniqueGenCount(genom);
-        agent.setScore((int)Math.pow((genom.length - uniqueGenCount), fine));
-        agent.setDist(0);
+        agent.setScore((genom.length - uniqueGenCount) * fine);
+        System.out.println(agent.getScore());
+        
         int[] genomShift = getGenomShift(genom);
         for (int i = 0; i < genom.length; i++) {
-            agent.addScore(space.getSquareDistance(genom[i], genomShift[i]));
-            agent.addDist(space.getDistance(genom[i], genomShift[i]));   
+            agent.addScore(space.getDistance(genom[i], genomShift[i]));
         }
     }
 

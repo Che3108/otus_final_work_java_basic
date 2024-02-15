@@ -10,12 +10,11 @@ public class Main {
         GeneticAlgorithm gnetic = new GeneticAlgorithm(
             space,
             10000,
-            9,
-            800,
-            200,
+            80,
+            20,
             0.1f,
             0.5f,
-            10
+            10000
         );
         gnetic.run();
     }
