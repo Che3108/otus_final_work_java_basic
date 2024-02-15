@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
     
     public static void main(String[] args) {
-        Space space = new Space(generatePoints(), 4);
+        Space space = new Space(generatePoints(), 3);
         GeneticAlgorithm gnetic = new GeneticAlgorithm(
             space,
             100,
