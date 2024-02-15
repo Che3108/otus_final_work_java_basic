@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class Agent implements Comparable<Agent> {
     private int[] genom;
     private double score;
+    
 
     public Agent(int[] genom) {
         this.genom = genom;

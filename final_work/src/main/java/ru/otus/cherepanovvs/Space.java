@@ -6,10 +6,12 @@ import java.util.List;
 public class Space {
     private List<Point> points;
     private ArrayList<ArrayList<Double>> distanceMatrix;
+    private int startPointIndex;
 
-    public Space(List<Point> points) {
+    public Space(List<Point> points, int startPointIndex) {
         this.points = points;
         this.distanceMatrix = calculateSquareDistanceMatrix();
+        this.startPointIndex = startPointIndex;
     }
 
     private ArrayList<ArrayList<Double>> calculateSquareDistanceMatrix() {
@@ -33,6 +35,10 @@ public class Space {
 
     public int getPointsCount() {
         return points.size();
+    }
+
+    public int getStartPointIndex() {
+        return startPointIndex;
     }
 
 }

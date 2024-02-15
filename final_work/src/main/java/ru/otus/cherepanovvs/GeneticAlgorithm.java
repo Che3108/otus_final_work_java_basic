@@ -87,8 +87,9 @@ public class GeneticAlgorithm {
         int[] genom = agent.getGenom();
         int uniqueGenCount = getUniqueGenCount(genom);
         agent.setScore((genom.length - uniqueGenCount) * fine);
-        System.out.println(agent.getScore());
-        
+        if (genom[0] != space.getStartPointIndex()) {
+            agent.addScore(Math.pow(fine, 2));
+        }
         int[] genomShift = getGenomShift(genom);
         for (int i = 0; i < genom.length; i++) {
             agent.addScore(space.getDistance(genom[i], genomShift[i]));
