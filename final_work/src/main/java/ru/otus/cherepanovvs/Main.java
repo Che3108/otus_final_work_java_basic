@@ -9,7 +9,7 @@ public class Main {
         Space space = new Space(generatePoints(), 3);
         GeneticAlgorithm gnetic = new GeneticAlgorithm(
             space,
-            100,
+            1000,
             80,
             20,
             0.1f,
