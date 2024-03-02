@@ -14,12 +14,12 @@ public class Agent implements Comparable<Agent> {
      
     public Agent(int[] genom) {
         this.genom = genom;
-        this.score = Integer.MIN_VALUE;
+        this.score = Integer.MAX_VALUE;
     }
 
     public Agent(int genomLen) {
         this.genom = generateRandomGenom(genomLen);
-        this.score = Integer.MIN_VALUE;
+        this.score = Integer.MAX_VALUE;
     }
 
     private int[] generateRandomGenom(int genomLen) {
@@ -35,6 +35,10 @@ public class Agent implements Comparable<Agent> {
         return score;
     }
 
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     public int[] getGenom() {
         return genom;
     }
@@ -42,7 +46,7 @@ public class Agent implements Comparable<Agent> {
     @Override
     public int compareTo(Agent o) {
         if (o == null) {
-            return Integer.MIN_VALUE;
+            return Integer.MAX_VALUE;
         }
         return (int)Math.round(this.score - o.score);
     }
@@ -94,7 +98,9 @@ public class Agent implements Comparable<Agent> {
         int uniqueGenCount = getUniqueGensCount();
         score = (genom.length - uniqueGenCount) * fine;
         if (genom[0] != space.getStartPointIndex()) {
-            score += Math.pow(fine, 2);
+            score += fine;
+        } else {
+            score -= fine;
         }
         for (int i = 1; i < genom.length; i++) {
             score += space.getDistance(genom[i - 1], genom[i]);
@@ -107,5 +113,11 @@ public class Agent implements Comparable<Agent> {
             uniqueGen.add(i);
         }
         return uniqueGen.size();
+    }
+
+    protected Agent clone() {
+        Agent copy = new Agent(genom);
+        copy.setScore(score);
+        return copy;
     }
 }

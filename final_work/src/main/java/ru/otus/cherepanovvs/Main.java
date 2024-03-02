@@ -9,12 +9,12 @@ public class Main {
         Space space = new Space(generatePoints(), 3);
         GeneticAlgorithm gnetic = new GeneticAlgorithm(
             space,
-            1000,
+            10,
             80,
             20,
             0.1f,
             0.5f,
-            10000
+            100
         );
         gnetic.run();
     }
@@ -26,7 +26,7 @@ public class Main {
         points.add(new Point(219, 671));
         points.add(new Point(698, 773));
         points.add(new Point(388, 907));
-        points.add(new Point(1000, 206));
+        points.add(new Point(100, 206));
         points.add(new Point(619, 981));
         points.add(new Point(486, 341));
         points.add(new Point(518, 898));

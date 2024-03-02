@@ -14,7 +14,7 @@ public class GeneticAlgorithm {
     private List<Agent> population;
     private Space space;
     private int fine;
-    private Agent bestAgent;
+    //private Agent bestAgent;
 
     public GeneticAlgorithm(Space space, int epochs, int populationSize, 
                             int bestAgentCount, float mutationPersent,
@@ -31,27 +31,30 @@ public class GeneticAlgorithm {
 
     public void run() {
         generatePopulation();
-        bestAgent = population.get(0);
+        Agent bestAgent = population.get(0).clone();
         for (int currEpoch = 0; currEpoch < epochs; currEpoch++) {
+            System.out.println(bestAgent);
             for (Agent agent : population) {
                 agent.calcScore(space, fine);
             }
             List<Agent> newPopulation = new ArrayList<>(populationSize);
             population.sort(Comparator.naturalOrder());
-            if (population.get(0).getScore() < bestAgent.getScore()) {
-                bestAgent = population.get(0);
+            Agent bestOfPopul = population.get(0);
+            
+            if (bestAgent.getScore() > bestOfPopul.getScore()) {
+                System.out.println(bestAgent.getScore() + ", " + population.get(0).getScore());
+                bestAgent = bestOfPopul;
             }
-            System.out.println("Best agent " + bestAgent);
+            System.out.println(bestAgent);
+            System.out.println();
+            
             for (int i = 0; i < bestAgentCount; i++) {
-                newPopulation.add(population.get(i));
+                newPopulation.add(population.get(i).clone());
             }
 
             for (int i = 1; i < bestAgentCount; i++) {
                 newPopulation.addAll(
-                    population.get(i - 1).crossbreed(
-                                            population.get(i),
-                                            crossbreedPercent
-                                        )
+                    population.get(i - 1).crossbreed(population.get(i), crossbreedPercent)
                 );
             }
             int newPopulSize = newPopulation.size();
